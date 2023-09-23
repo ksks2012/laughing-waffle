@@ -26,3 +26,4 @@ test_code/**
 *.sh
 
 data/**
+*-workspace
