@@ -5,6 +5,8 @@ import win32gui
 import random
 import time
 
+import util.define as DEFINE
+
 from typing import Tuple
 
 class WIN32_API():
@@ -27,6 +29,7 @@ class WIN32_API():
 
     def tap(self, pos: Tuple[int, int]):
         # Mouse clicking coordinates
+        pos = (pos[0] - DEFINE.OFFEST[0], pos[1] - DEFINE.OFFEST[1])
         lParam = win32api.MAKELONG(*pos)
         # Press the left button
         win32api.PostMessage(self.target_hwnd, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, lParam)
@@ -38,10 +41,15 @@ class WIN32_API():
         rand_x = random.randint(upper_left[0], lower_right[0])
         rand_y = random.randint(upper_left[1], lower_right[1])
         print(f"random_tap: {upper_left=} {lower_right=} {rand_x=} {rand_y=}")
+        self.tap((rand_x, rand_y))
 
+# x = 200
+# y = 975
 
-x = 200
-y = 975
+# x = 980
+# x = 200
+x = 340
+y = 795
 
 if __name__ == "__main__":
     win32 = WIN32_API()
