@@ -25,5 +25,6 @@ test_code/**
 *.db3
 *.sh
 
-data/**
+test_data/**
 *-workspace
+MNIST/**
