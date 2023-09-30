@@ -11,11 +11,12 @@ PATH = "./ai_model/model_minst"
 class CNN(torch.nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
-        self.conv1 = nn.Conv2d(1,16,kernel_size=(3,3))
-        self.conv2 = nn.Conv2d(16,32,kernel_size=(3,3))
-        self.maxpool = nn.MaxPool2d(kernel_size=(2,2))
-        self.lin1 = nn.Linear(800,128)
-        self.out = nn.Linear(128,10) # flatten output of CNN
+        self.conv1 = nn.Conv2d(1, 16, kernel_size=(3, 3))
+        self.conv2 = nn.Conv2d(16, 32, kernel_size=(3, 3))
+        self.maxpool = nn.MaxPool2d(kernel_size=(2, 2))
+        self.lin1 = nn.Linear(800, 128)
+        self.out = nn.Linear(128, 10) # flatten output of CNN
+
     def forward(self,x):
         x = self.conv1(x)
         x = nn.functional.relu(x) # use ReLU
@@ -27,9 +28,10 @@ class CNN(torch.nn.Module):
         x = self.lin1(x) 
         x = nn.functional.relu(x)
         x = self.out(x)
-        x = nn.functional.log_softmax(x,dim=1)
+        x = nn.functional.log_softmax(x,d im=1)
         return x
     
+
 class MINSTModel():
     def __init__(self) -> None:
         self.download_dataset()
@@ -62,16 +64,16 @@ class MINSTModel():
         for i in range(epochs):
             print('Current training epoch: ',i)
             opt.zero_grad()
-            batch_ids_CNN = np.random.randint(0,60000,size=batch_size)
+            batch_ids_CNN = np.random.randint(0, 60000, size=batch_size)
             xt = self.train_data.data[batch_ids_CNN].detach()
             xt = self.prepare_images(xt).unsqueeze(dim=1)
             yt = self.train_data.train_labels[batch_ids_CNN].detach()
             pred = self.model(xt)
-            pred_labels = torch.argmax(pred,dim=1)
+            pred_labels = torch.argmax(pred, dim=1)
             acc_ = 100.0 * (pred_labels == yt).sum() / batch_size
             print('Current training accuracy: ', acc_.item())
             self.acc_CNN.append(acc_)
-            loss = lossfn(pred,yt)
+            loss = lossfn(pred, yt)
             print('Current training loss: ', loss.item())
             self.losses.append(loss)    
             loss.backward()
@@ -84,7 +86,7 @@ class MINSTModel():
         xt = self.test_data.data[test_id].detach()
         xt =self.prepare_images(xt).unsqueeze(dim=1)
         preds = self.model(xt)
-        pred_ind = torch.argmax(preds.detach(),dim=1) 
+        pred_ind = torch.argmax(preds.detach(), dim=1) 
         pred_ind = pred_ind.numpy()
 
         for i in range (10):
