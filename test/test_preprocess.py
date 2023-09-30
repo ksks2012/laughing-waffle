@@ -41,10 +41,17 @@ def test_dilate_img():
     dilate = dilate_img(gray_image, 1)
     cv2.imwrite(f"./dilate.png", dilate)
 
+def test_data_generator():
+    for i in range(1, 7):
+        img = binarization_file(f"./fullscreen_{i}.png")
+        cv2.imwrite(f"./tmp_{i}.png", img)
+
 if __name__ == "__main__":
     # test_binarization(TEST_FILE)
     # test_equalizeHist()
     # test_erode_img()
     # test_dilate_img()
     # test_thres_img_left()
-    test_thres2_img_left()
+    # test_thres2_img_left()
+
+    test_data_generator()
