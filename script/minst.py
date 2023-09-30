@@ -28,7 +28,7 @@ class CNN(torch.nn.Module):
         x = self.lin1(x) 
         x = nn.functional.relu(x)
         x = self.out(x)
-        x = nn.functional.log_softmax(x,d im=1)
+        x = nn.functional.log_softmax(x, dim=1)
         return x
     
 
