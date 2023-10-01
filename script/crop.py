@@ -25,10 +25,10 @@ POS = (
 )
 
 
-def crop(output: str):
+def crop(intput, output: str, pos):
     # Check speed
-    img = Image.open(SCREEN2)
-    cropped = img.crop(POS)
+    img = Image.open(intput)
+    cropped = img.crop(pos)
     cropped.save(output)
 
 
@@ -60,5 +60,7 @@ def crop_digits(img, left_thred=220, offset=-25, save=False, idx=0) -> List[int]
 
 
 if __name__ == "__main__":
-    # crop("./RACE_gray.png")
-    crop_digits("./2_image.png")
+    # crop("./RACE_gray.png", POS)
+    # crop_digits("./2_image.png")
+
+    crop("./tmp_1.png", "./tmp_1_support.png", DEFINE.TRAINING_SUPPORT_POS)
