@@ -38,17 +38,18 @@ def count_heads(image):
         # Calculate the area of the contour.
         area = cv2.contourArea(contour)
         # If the area of the contour is greater than a certain value, then it is a head.
+        # print(area)
         if area > 4000:
-            # (x, y, w, h) = cv2.boundingRect(contour)
+            (x, y, w, h) = cv2.boundingRect(contour)
             # digit = edges[y : y + h, x : x + w]
             # cv2.imwrite(f"./{area}.png", digit)
-            count += 1
+            count += int(area / 4000)
 
     return count
 
 
 if __name__ == "__main__":
-    image = cv2.imread("tmp_1_support.png")
+    image = cv2.imread("tmp_6_support.png")
 
     # Count the number of heads in the image.
     count = count_heads(image)
